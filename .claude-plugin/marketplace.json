@@ -1,0 +1,15 @@
+{
+  "metadata": { "pluginRoot": "." },
+  "plugins": [
+    {
+      "name": "agent-messenger",
+      "source": ".",
+      "skills": ["./skills/agent-messenger"]
+    },
+    {
+      "name": "agent-x",
+      "source": ".",
+      "skills": ["./skills/agent-x"]
+    }
+  ]
+}
