@@ -12,11 +12,31 @@ Compatible with the [vercel-labs/skills](https://github.com/vercel-labs/skills) 
 npx skills add Sortis-AI/skills
 ```
 
-### Via Claude Code plugin marketplace
+To install all skills to all detected agents at once:
 
 ```bash
-claude plugin add Sortis-AI/skills
+npx skills add Sortis-AI/skills --all
 ```
+
+### Via Claude Code plugin marketplace
+
+From the terminal:
+
+```bash
+claude plugin marketplace add Sortis-AI/skills
+claude plugin install agent-messenger
+claude plugin install agent-x
+```
+
+From within a Claude Code session:
+
+```
+/plugin marketplace add Sortis-AI/skills
+/plugin install agent-messenger@sortis-ai-skills
+/plugin install agent-x@sortis-ai-skills
+```
+
+Or run `/plugin` to open the interactive plugin manager, navigate to the **Discover** tab, and install from there.
 
 ## Skills
 
