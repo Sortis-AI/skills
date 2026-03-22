@@ -1,15 +1,32 @@
 {
-  "metadata": { "pluginRoot": "." },
+  "name": "sortis-ai",
+  "owner": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "metadata": {
+    "description": "Agent skills for encrypted messaging and social media automation"
+  },
   "plugins": [
     {
       "name": "agent-messenger",
-      "source": ".",
-      "skills": ["./skills/agent-messenger"]
+      "version": "0.3.2",
+      "description": "E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping. Send DMs, group messages, manage identities, and run autonomous agent harnesses.",
+      "author": {
+        "name": "Sortis AI",
+        "url": "https://cli.city"
+      },
+      "source": "./plugins/agent-messenger"
     },
     {
       "name": "agent-x",
-      "source": ".",
-      "skills": ["./skills/agent-x"]
+      "version": "0.3.3",
+      "description": "Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and automate social media workflows.",
+      "author": {
+        "name": "Sortis AI",
+        "url": "https://cli.city"
+      },
+      "source": "./plugins/agent-x"
     }
   ]
 }

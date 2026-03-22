@@ -1,6 +1,6 @@
 # Sortis AI Agent Skills
 
-Agent skills for AI coding agents, by [Sortis AI](https://sortis.dev).
+Agent skills for AI coding agents, by [Sortis AI](https://cli.city).
 
 Compatible with the [vercel-labs/skills](https://github.com/vercel-labs/skills) CLI (40+ agents including Claude Code, Cursor, Codex, OpenCode, and more) and the [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces).
 

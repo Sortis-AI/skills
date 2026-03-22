@@ -2,10 +2,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEST="$SCRIPT_DIR/skills"
-
-rm -rf "$DEST"
-mkdir -p "$DEST"
+SKILLS_DIR="$SCRIPT_DIR/skills"
+PLUGINS_DIR="$SCRIPT_DIR/plugins"
 
 sources=(
   "$SCRIPT_DIR/../agent-messenger/skills/agent-messenger"
@@ -18,6 +16,15 @@ for src in "${sources[@]}"; do
     echo "SKIP: $src not found" >&2
     continue
   fi
-  cp -r "$src" "$DEST/$name"
+
+  # Copy to skills/ (vercel-labs/skills CLI)
+  rm -rf "$SKILLS_DIR/$name"
+  cp -r "$src" "$SKILLS_DIR/$name"
+
+  # Copy to plugins/<name>/skills/<name>/ (Claude Code marketplace)
+  rm -rf "$PLUGINS_DIR/$name/skills/$name"
+  mkdir -p "$PLUGINS_DIR/$name/skills"
+  cp -r "$src" "$PLUGINS_DIR/$name/skills/$name"
+
   echo "Copied $name"
 done
