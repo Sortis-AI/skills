@@ -3,11 +3,18 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
-PLUGINS_DIR="$SCRIPT_DIR/plugins"
 
 sources=(
   "$SCRIPT_DIR/../agent-messenger/skills/agent-messenger"
   "$SCRIPT_DIR/../agent-x/skills/agent-x"
+  "$SCRIPT_DIR/../level5/skills/level5"
+)
+
+# Plugin metadata keyed by skill name: "version|description"
+declare -A plugin_meta=(
+  [agent-messenger]="0.3.2|E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping."
+  [agent-x]="0.3.3|Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more."
+  [level5]="1.6.2|Budget Management for AI Agents — USDC billing gateway on Solana."
 )
 
 for src in "${sources[@]}"; do
@@ -17,14 +24,25 @@ for src in "${sources[@]}"; do
     continue
   fi
 
-  # Copy to skills/ (vercel-labs/skills CLI)
   rm -rf "$SKILLS_DIR/$name"
   cp -r "$src" "$SKILLS_DIR/$name"
 
-  # Copy to plugins/<name>/skills/<name>/ (Claude Code marketplace)
-  rm -rf "$PLUGINS_DIR/$name/skills/$name"
-  mkdir -p "$PLUGINS_DIR/$name/skills"
-  cp -r "$src" "$PLUGINS_DIR/$name/skills/$name"
+  # Generate .claude-plugin/plugin.json (Claude Code marketplace)
+  IFS='|' read -r version description <<< "${plugin_meta[$name]}"
+  mkdir -p "$SKILLS_DIR/$name/.claude-plugin"
+  cat > "$SKILLS_DIR/$name/.claude-plugin/plugin.json" <<EOF
+{
+  "name": "$name",
+  "version": "$version",
+  "description": "$description",
+  "author": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "homepage": "https://github.com/Sortis-AI/$name",
+  "repository": "https://github.com/Sortis-AI/$name"
+}
+EOF
 
-  echo "Copied $name"
+  echo "Synced $name"
 done

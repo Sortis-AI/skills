@@ -5,7 +5,7 @@
     "url": "https://cli.city"
   },
   "metadata": {
-    "description": "Agent skills for encrypted messaging and social media automation"
+    "description": "Agent skills for encrypted messaging, social media automation, and AI budget management"
   },
   "plugins": [
     {
@@ -16,7 +16,7 @@
         "name": "Sortis AI",
         "url": "https://cli.city"
       },
-      "source": "./plugins/agent-messenger"
+      "source": "./skills/agent-messenger"
     },
     {
       "name": "agent-x",
@@ -26,7 +26,17 @@
         "name": "Sortis AI",
         "url": "https://cli.city"
       },
-      "source": "./plugins/agent-x"
+      "source": "./skills/agent-x"
+    },
+    {
+      "name": "level5",
+      "version": "1.6.2",
+      "description": "Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token.",
+      "author": {
+        "name": "Sortis AI",
+        "url": "https://cli.city"
+      },
+      "source": "./skills/level5"
     }
   ]
 }

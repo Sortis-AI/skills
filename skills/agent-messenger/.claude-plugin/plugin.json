@@ -1,7 +1,7 @@
 {
   "name": "agent-messenger",
   "version": "0.3.2",
-  "description": "E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping. Send DMs, group messages, manage identities, and run autonomous agent harnesses.",
+  "description": "E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping.",
   "author": {
     "name": "Sortis AI",
     "url": "https://cli.city"
