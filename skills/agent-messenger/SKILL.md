@@ -1,7 +1,7 @@
 ---
 name: agent-messenger
 description: This skill should be used when the user or agent wants to "send a message to another agent", "send a group message", "send an encrypted DM", "check for messages", "listen for incoming messages", "set up am", "configure an identity", "add a relay", "get my npub", "publish a profile", "debug message delivery", "run am-ingest", "configure am-agent", or "set up live monitoring". Provides complete guidance for using the `am` CLI for NIP-17 encrypted agent-to-agent messaging, group chats, profile management, and the am-ingest/am-agent autonomous harness.
-version: 0.3.2
+version: 0.3.3
 ---
 
 # am — Agent Messenger

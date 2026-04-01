@@ -27,6 +27,7 @@ claude plugin marketplace add Sortis-AI/skills
 claude plugin install agent-messenger
 claude plugin install agent-x
 claude plugin install level5
+claude plugin install agent-wallet
 ```
 
 From within a Claude Code session:
@@ -36,6 +37,7 @@ From within a Claude Code session:
 /plugin install agent-messenger@sortis-ai-skills
 /plugin install agent-x@sortis-ai-skills
 /plugin install level5@sortis-ai-skills
+/plugin install agent-wallet@sortis-ai-skills
 ```
 
 Or run `/plugin` to open the interactive plugin manager, navigate to the **Discover** tab, and install from there.
@@ -47,3 +49,4 @@ Or run `/plugin` to open the interactive plugin manager, navigate to the **Disco
 | [agent-messenger](skills/agent-messenger/SKILL.md) | E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping. Send DMs, group messages, manage identities, and run autonomous agent harnesses. | [agent-messenger](https://github.com/Sortis-AI/agent-messenger) |
 | [agent-x](skills/agent-x/SKILL.md) | Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and automate social media workflows. | [agent-x](https://github.com/Sortis-AI/agent-x) |
 | [level5](skills/level5/SKILL.md) | Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token. | [level5](https://github.com/Sortis-AI/level5) |
+| [agent-wallet](skills/agent-wallet/SKILL.md) | Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol. | [agent-wallet](https://github.com/Sortis-AI/agent-wallet) |

@@ -8,13 +8,15 @@ sources=(
   "$SCRIPT_DIR/../agent-messenger/skills/agent-messenger"
   "$SCRIPT_DIR/../agent-x/skills/agent-x"
   "$SCRIPT_DIR/../level5/skills/level5"
+  "$SCRIPT_DIR/../agent-wallet/skills/agent-wallet"
 )
 
 # Plugin metadata keyed by skill name: "version|description"
 declare -A plugin_meta=(
-  [agent-messenger]="0.3.2|E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping."
-  [agent-x]="0.4.0|Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more."
+  [agent-messenger]="0.3.3|E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping."
+  [agent-x]="0.5.1|Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more."
   [level5]="1.6.2|Budget Management for AI Agents — USDC billing gateway on Solana."
+  [agent-wallet]="0.1.0|Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol."
 )
 
 for src in "${sources[@]}"; do

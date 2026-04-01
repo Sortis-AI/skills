@@ -1,0 +1,11 @@
+{
+  "name": "agent-wallet",
+  "version": "0.1.0",
+  "description": "Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol.",
+  "author": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "homepage": "https://github.com/Sortis-AI/agent-wallet",
+  "repository": "https://github.com/Sortis-AI/agent-wallet"
+}

@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "agent-messenger",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "description": "E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping. Send DMs, group messages, manage identities, and run autonomous agent harnesses.",
       "author": {
         "name": "Sortis AI",
@@ -20,7 +20,7 @@
     },
     {
       "name": "agent-x",
-      "version": "0.4.0",
+      "version": "0.5.1",
       "description": "Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and automate social media workflows.",
       "author": {
         "name": "Sortis AI",
@@ -37,6 +37,16 @@
         "url": "https://cli.city"
       },
       "source": "./skills/level5"
+    },
+    {
+      "name": "agent-wallet",
+      "version": "0.1.0",
+      "description": "Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol.",
+      "author": {
+        "name": "Sortis AI",
+        "url": "https://cli.city"
+      },
+      "source": "./skills/agent-wallet"
     }
   ]
 }

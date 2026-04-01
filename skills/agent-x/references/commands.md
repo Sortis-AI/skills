@@ -36,6 +36,16 @@ ax self bookmark <id>                # Bookmark a tweet
 ax self unbookmark <id>              # Remove bookmark
 ```
 
+## Community operations
+
+```bash
+ax community search "rust programming"               # Search communities
+ax community search "AI" --max-results 20             # Search with pagination
+ax community get 1234567890                           # Get community details
+ax community post 1234567890 "Hello community!"       # Post to a community
+ax tweet post "Hello!" --community-id 1234567890      # Post to community via tweet
+```
+
 ## Auth operations
 
 ```bash
