@@ -1,6 +1,6 @@
 {
   "name": "agent-messenger",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping.",
   "author": {
     "name": "Sortis AI",
