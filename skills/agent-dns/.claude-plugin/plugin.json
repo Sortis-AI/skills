@@ -1,0 +1,11 @@
+{
+  "name": "agent-dns",
+  "version": "0.2.1",
+  "description": "MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC.",
+  "author": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "homepage": "https://github.com/Sortis-AI/agent-dns",
+  "repository": "https://github.com/Sortis-AI/agent-dns"
+}

@@ -28,6 +28,7 @@ claude plugin install agent-messenger
 claude plugin install agent-x
 claude plugin install level5
 claude plugin install agent-wallet
+claude plugin install agent-dns
 ```
 
 From within a Claude Code session:
@@ -38,6 +39,7 @@ From within a Claude Code session:
 /plugin install agent-x@sortis-ai-skills
 /plugin install level5@sortis-ai-skills
 /plugin install agent-wallet@sortis-ai-skills
+/plugin install agent-dns@sortis-ai-skills
 ```
 
 Or run `/plugin` to open the interactive plugin manager, navigate to the **Discover** tab, and install from there.
@@ -50,3 +52,4 @@ Or run `/plugin` to open the interactive plugin manager, navigate to the **Disco
 | [agent-x](skills/agent-x/SKILL.md) | Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and automate social media workflows. | [agent-x](https://github.com/Sortis-AI/agent-x) |
 | [level5](skills/level5/SKILL.md) | Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token. | [level5](https://github.com/Sortis-AI/level5) |
 | [agent-wallet](skills/agent-wallet/SKILL.md) | Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol. | [agent-wallet](https://github.com/Sortis-AI/agent-wallet) |
+| [agent-dns](skills/agent-dns/SKILL.md) | MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC. | [agent-dns](https://github.com/Sortis-AI/agent-dns) |

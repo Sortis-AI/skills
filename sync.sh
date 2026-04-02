@@ -9,6 +9,7 @@ sources=(
   "$SCRIPT_DIR/../agent-x/skills/agent-x"
   "$SCRIPT_DIR/../level5/skills/level5"
   "$SCRIPT_DIR/../agent-wallet/skills/agent-wallet"
+  "$SCRIPT_DIR/../agent-dns/skills/agent-dns"
 )
 
 # Plugin metadata keyed by skill name: "version|description"
@@ -17,6 +18,7 @@ declare -A plugin_meta=(
   [agent-x]="0.5.1|Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more."
   [level5]="1.6.2|Budget Management for AI Agents — USDC billing gateway on Solana."
   [agent-wallet]="0.1.0|Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol."
+  [agent-dns]="0.2.1|MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC."
 )
 
 for src in "${sources[@]}"; do
