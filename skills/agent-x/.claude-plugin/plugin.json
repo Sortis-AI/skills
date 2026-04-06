@@ -1,6 +1,6 @@
 {
   "name": "agent-x",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more.",
   "author": {
     "name": "Sortis AI",
