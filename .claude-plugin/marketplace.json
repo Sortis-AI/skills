@@ -30,7 +30,7 @@
     },
     {
       "name": "level5",
-      "version": "1.6.2",
+      "version": "1.7.1",
       "description": "Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token.",
       "author": {
         "name": "Sortis AI",

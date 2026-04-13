@@ -1,9 +1,9 @@
 ---
 name: level5
-version: 1.6.2
-description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token.
+version: 1.7.1
+description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC or lock $SQUIRE for daily inference credits on Solana; pay for LLM compute per token.
 homepage: https://level5.cloud
-metadata: {"category":"infrastructure","network":"solana","currencies":["USDC"],"supported_providers":["openai","anthropic","openrouter"]}
+metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SQUIRE"],"supported_providers":["openai","anthropic","openrouter"]}
 ---
 
 # Level5: Budget Management for AI Agents
@@ -195,8 +195,10 @@ print(f"Your dashboard: {dashboard_url}")
 | GET    | `/health` | None | Service health — returns component status |
 | GET    | `/v1/pricing` | None | Current model pricing |
 | POST   | `/v1/register` | None | Register new agent, get API token + deposit code |
-| GET    | `/proxy/{api_token}/balance` | Token in path | Check USDC balance |
+| GET    | `/proxy/{api_token}/balance` | Token in path | USDC + credit balance |
+| GET    | `/proxy/{api_token}/lock-status` | Token in path | SQUIRE lock status + daily credit |
 | GET    | `/proxy/{api_token}/transactions` | Token in path | Transaction history |
+| GET    | `/proxy/{api_token}/v1/models` | Token in path | Supported model list |
 | POST   | `/proxy/{api_token}/v1/chat/completions` | Token in path | OpenAI-format proxy |
 | POST   | `/proxy/{api_token}/v1/messages` | Token in path | Anthropic-format proxy |
 
@@ -297,12 +299,56 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/balance
 ```json
 {
   "api_token": "abc-123-def-456",
-  "usdc_balance": 5000000,
+  "usdc_balance": 845045,
+  "credit_balance": 200000,
   "is_active": true
 }
 ```
 
-`usdc_balance` is in USDC microunits (6 decimals). 5 000 000 = 5.00 USDC.
+- `usdc_balance` — USDC deposits in microunits (6 decimals). 1 000 000 = 1.00 USDC.
+- `credit_balance` — Daily inference credits in microunits, funded by locking $SQUIRE tokens. Refreshes every 24 hours (use-it-or-lose-it). Credits are consumed before USDC deposits.
+- `is_active` — Whether the agent has been activated (first deposit or SQUIRE lock).
+
+---
+
+### GET /proxy/{api_token}/lock-status
+
+```bash
+curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/lock-status
+```
+
+**Response:** HTTP 200
+```json
+{
+  "locked_squire": 5000000000000,
+  "daily_credit_usdc": 1.0,
+  "last_credit_at": "2026-04-10T00:00:00Z",
+  "next_credit_at": "2026-04-11T00:00:00Z"
+}
+```
+
+- `locked_squire` — Total SQUIRE locked in raw token units (6 decimals). 5 000 000 000 000 = 5M SQUIRE.
+- `daily_credit_usdc` — Daily inference credit in USD. At the current rate, 5M SQUIRE = $1.00/day.
+- `last_credit_at` / `next_credit_at` — ISO timestamps. `null` if no credit has been applied yet.
+
+---
+
+### GET /proxy/{api_token}/v1/models
+
+```bash
+curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/v1/models
+```
+
+**Response:** HTTP 200 (OpenAI-compatible format)
+```json
+{
+  "object": "list",
+  "data": [
+    {"id": "claude-sonnet-4.6", "object": "model", "owned_by": "openrouter"},
+    {"id": "gpt-4o-mini", "object": "model", "owned_by": "openai"}
+  ]
+}
+```
 
 ---
 
@@ -466,7 +512,8 @@ api_token = creds["api_token"]
 
 import anthropic
 client = anthropic.Anthropic(
-    base_url=f"https://api.level5.cloud/proxy/{api_token}",
+    base_url=f"https://api.level5.cloud/proxy/{api_token}",  # Anthropic SDK (appends /v1/messages)
+    # For OpenAI SDK, use: base_url=f"https://api.level5.cloud/proxy/{api_token}/v1"
     api_key="level5",
 )
 ```
@@ -499,10 +546,23 @@ Prices in USDC microunits per 1M tokens (6 decimals, 1 USDC = 1 000 000).
 | openai      | `gpt-5.2`                     | 1 750 000  | 14 000 000 | 175 000       |
 | openai      | `gpt-5.3-codex`               | 1 750 000  | 14 000 000 | 175 000       |
 | openai      | `gpt-4o`                      | 2 500 000  | 10 000 000 | 1 250 000     |
+| openai      | `gpt-4o-mini`                 | 150 000    | 600 000    | 75 000        |
+| openai      | `gpt-5.4-mini`                | 750 000    | 4 500 000  | 75 000        |
 | openai      | `o3`                          | 2 000 000  | 8 000 000  | 500 000       |
+| openrouter  | `claude-sonnet-4.6`           | 3 300 000  | 16 500 000 | 330 000       |
+| openrouter  | `claude-opus-4.6`             | 5 500 000  | 27 500 000 | 550 000       |
+| openrouter  | `qwen3.6-plus`                | 357 500    | 2 145 000  | —             |
+| openrouter  | `deepseek-v3.2`               | 286 000    | 418 000    | 143 000       |
+| openrouter  | `minimax-m2.7`                | 330 000    | 1 320 000  | 66 000        |
+| openrouter  | `step-3.5-flash`              | 110 000    | 330 000    | —             |
+| openrouter  | `gemini-3-flash-preview`      | 550 000    | 3 300 000  | 55 000        |
+| openrouter  | `gpt-4o-mini`                 | 165 000    | 660 000    | 82 500        |
+| openrouter  | `kimi-k2.5`                   | 420 970    | 1 892 000  | 210 430       |
 | openrouter  | `qwen3-max`                   | 1 320 000  | 6 600 000  | 264 000       |
 | openrouter  | `qwen3-coder-plus`            | 1 100 000  | 5 500 000  | 220 000       |
 | openrouter  | `glm-5`                       | 1 100 000  | 3 520 000  | 220 000       |
+| openrouter  | `glm-5.1`                     | 1 045 000  | 3 465 000  | 522 500       |
+| openrouter  | `gpt-5.4-mini`                | 750 000    | 4 500 000  | 75 000        |
 | openrouter  | `grok-4-1-fast`               | 220 000    | 550 000    | 55 000        |
 | openrouter  | `gemini-3.1-pro-preview`      | 2 200 000  | 13 200 000 | 550 000       |
 
