@@ -1,6 +1,6 @@
 ---
 name: level5
-version: 1.7.4
+version: 1.7.5
 description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC or lock $SQUIRE for daily inference credits on Solana; pay for LLM compute per token.
 homepage: https://level5.cloud
 metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SQUIRE"],"supported_providers":["venice","openai","anthropic","openrouter"]}
@@ -542,6 +542,7 @@ Prices in USDC microunits per 1M tokens (6 decimals, 1 USDC = 1 000 000).
 
 | Provider    | Model                         | Input/1M   | Output/1M  | Cache Read/1M |
 |-------------|-------------------------------|------------|------------|---------------|
+| anthropic   | `claude-opus-4-7`             | 5 500 000  | 27 500 000 | 550 000       |
 | anthropic   | `claude-sonnet-4-6`           | 3 300 000  | 16 500 000 | 330 000       |
 | anthropic   | `claude-opus-4-6`             | 5 500 000  | 27 500 000 | 550 000       |
 | anthropic   | `claude-haiku-4-5-20251001`   | 1 100 000  | 5 500 000  | 110 000       |
