@@ -1,9 +1,9 @@
 ---
 name: level5
-version: 1.7.1
+version: 1.7.4
 description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC or lock $SQUIRE for daily inference credits on Solana; pay for LLM compute per token.
 homepage: https://level5.cloud
-metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SQUIRE"],"supported_providers":["openai","anthropic","openrouter"]}
+metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SQUIRE"],"supported_providers":["venice","openai","anthropic","openrouter"]}
 ---
 
 # Level5: Budget Management for AI Agents
@@ -301,12 +301,14 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/balance
   "api_token": "abc-123-def-456",
   "usdc_balance": 845045,
   "credit_balance": 200000,
+  "deposit_code": "a1b2c3d4e5f6a7b8",
   "is_active": true
 }
 ```
 
 - `usdc_balance` — USDC deposits in microunits (6 decimals). 1 000 000 = 1.00 USDC.
 - `credit_balance` — Daily inference credits in microunits, funded by locking $SQUIRE tokens. Refreshes every 24 hours (use-it-or-lose-it). Credits are consumed before USDC deposits.
+- `deposit_code` — 16-char hex identifier that the on-chain contract uses to route deposits to this api_token. Same value returned by `/v1/register`.
 - `is_active` — Whether the agent has been activated (first deposit or SQUIRE lock).
 
 ---
@@ -320,15 +322,15 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/lock-status
 **Response:** HTTP 200
 ```json
 {
-  "locked_squire": 5000000000000,
-  "daily_credit_usdc": 1.0,
+  "locked_squire": 1000000000000,
+  "daily_credit_usdc": 2.0,
   "last_credit_at": "2026-04-10T00:00:00Z",
   "next_credit_at": "2026-04-11T00:00:00Z"
 }
 ```
 
-- `locked_squire` — Total SQUIRE locked in raw token units (6 decimals). 5 000 000 000 000 = 5M SQUIRE.
-- `daily_credit_usdc` — Daily inference credit in USD. At the current rate, 5M SQUIRE = $1.00/day.
+- `locked_squire` — Total SQUIRE locked in raw token units (6 decimals). 1 000 000 000 000 = 1M SQUIRE.
+- `daily_credit_usdc` — Daily inference credit in USD. At the current rate, 1M SQUIRE = $2.00/day.
 - `last_credit_at` / `next_credit_at` — ISO timestamps. `null` if no credit has been applied yet.
 
 ---
