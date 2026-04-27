@@ -1,9 +1,9 @@
 ---
 name: level5
-version: 1.7.5
-description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC or lock $SQUIRE for daily inference credits on Solana; pay for LLM compute per token.
+version: 1.7.7
+description: Budget Management for AI Agents — USDC billing gateway. Deposit USDC, SOL, or CLAW (swapped to USDC), or lock $SQUIRE for daily inference credits on Solana; pay for LLM compute per token.
 homepage: https://level5.cloud
-metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SQUIRE"],"supported_providers":["venice","openai","anthropic","openrouter"]}
+metadata: {"category":"infrastructure","network":"solana","currencies":["USDC","SOL","SQUIRE","CLAW"],"supported_providers":["venice","openai","anthropic","openrouter"]}
 ---
 
 # Level5: Budget Management for AI Agents
@@ -157,12 +157,24 @@ curl -X POST https://api.level5.cloud/v1/register
 
 ### Step 2: Fund and Configure
 
-Visit your dashboard URL to deposit USDC and get SDK configuration instructions for
+Visit your dashboard URL to fund your agent and get SDK configuration instructions for
 Claude Code, Codex, OpenCode, and Cursor. All setup steps are on the dashboard.
 
 ```
 https://level5.cloud/dashboard/{YOUR_API_TOKEN}
 ```
+
+Four funding channels, all on the same dashboard:
+
+| Asset | Mechanics | Credit shape |
+|-------|-----------|--------------|
+| **USDC** | Direct SPL deposit | 1:1 USDC balance |
+| **SOL** | Atomic Jupiter swap SOL→USDC | 1:1 USDC balance (at swap rate) |
+| **CLAW** | Atomic Jupiter swap CLAW→USDC (pump.fun creator coin at `739dnZEG4yaBWFsY8L8ZwrfhGG6dhtCSercW8Umspump`) | 1:1 USDC balance (at swap rate) |
+| **$SQUIRE** | Lock token, no unlock | Daily recurring credit allotment (refreshes every 24 h, use-it-or-lose-it) |
+
+SOL, CLAW, and USDC credit the usdc_balance as spendable balance. SQUIRE locks produce a
+separate `credit_balance` that refreshes daily and is consumed before `usdc_balance`.
 
 ---
 
@@ -366,34 +378,91 @@ curl "https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/transactions?page=1&limit=
   "api_token": "abc-123-def-456",
   "page": 1,
   "limit": 50,
+  "total": 5,
   "transactions": [
     {
-      "id": 1,
-      "type": "DEPOSIT",
-      "usdc_amount": 10000000,
+      "id": 5,
+      "type": "DEBIT",
+      "usdc_amount": -2348,
+      "original_amount": null,
+      "original_mint": null,
+      "provider": "openrouter",
+      "model": "claude-sonnet-4-6",
+      "input_tokens": 1500,
+      "output_tokens": 250,
+      "cache_write_tokens": null,
+      "cache_read_tokens": 120,
+      "created_at": "2026-04-22T10:01:00+00:00"
+    },
+    {
+      "id": 4,
+      "type": "SQUIRE_DAILY_CREDIT",
+      "usdc_amount": 2021900,
+      "original_amount": 1010950000000,
+      "original_mint": "SQUIRE",
       "provider": null,
       "model": null,
       "input_tokens": null,
       "output_tokens": null,
       "cache_write_tokens": null,
       "cache_read_tokens": null,
-      "created_at": "2026-02-22T10:00:00+00:00"
+      "created_at": "2026-04-22T00:00:00+00:00"
+    },
+    {
+      "id": 3,
+      "type": "SQUIRE_LOCK",
+      "usdc_amount": 0,
+      "original_amount": 1010950000000,
+      "original_mint": "SQUIRE",
+      "provider": null,
+      "model": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cache_write_tokens": null,
+      "cache_read_tokens": null,
+      "created_at": "2026-04-21T00:00:00+00:00"
     },
     {
       "id": 2,
-      "type": "DEBIT",
-      "usdc_amount": -330,
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-6",
-      "input_tokens": 15,
-      "output_tokens": 25,
+      "type": "DEPOSIT",
+      "usdc_amount": 3535158,
+      "original_amount": 3000000000,
+      "original_mint": "739dnZEG4yaBWFsY8L8ZwrfhGG6dhtCSercW8Umspump",
+      "provider": null,
+      "model": null,
+      "input_tokens": null,
+      "output_tokens": null,
       "cache_write_tokens": null,
-      "cache_read_tokens": 120,
-      "created_at": "2026-02-22T10:01:00+00:00"
+      "cache_read_tokens": null,
+      "created_at": "2026-04-20T15:00:00+00:00"
+    },
+    {
+      "id": 1,
+      "type": "DEPOSIT",
+      "usdc_amount": 10000000,
+      "original_amount": 10000000,
+      "original_mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "provider": null,
+      "model": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cache_write_tokens": null,
+      "cache_read_tokens": null,
+      "created_at": "2026-04-19T10:00:00+00:00"
     }
   ]
 }
 ```
+
+**Transaction types:**
+
+- `DEPOSIT` — On-chain deposit credited to `usdc_balance`. `usdc_amount` is the USDC delivered after any swap (microunits, positive). `original_mint` identifies the source asset; `original_amount` is the pre-swap quantity in raw base units of that asset.
+  - USDC deposit → `original_mint = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"`, `original_amount == usdc_amount`.
+  - SOL deposit → `original_mint = "So11111111111111111111111111111111111111112"` (wSOL), `original_amount` in lamports.
+  - CLAW deposit → `original_mint = "739dnZEG4yaBWFsY8L8ZwrfhGG6dhtCSercW8Umspump"`, `original_amount` in CLAW raw units (6 decimals).
+- `DEBIT` — Inference cost. `usdc_amount` is negative microunits; `original_*` always null. `provider`, `model`, and token counts populated.
+- `SQUIRE_LOCK` — Audit row for a SQUIRE lock action. `usdc_amount` is always 0 (locks don't move USDC). `original_mint = "SQUIRE"` (string literal, not an SPL mint), `original_amount` is the locked SQUIRE amount in raw base units.
+- `SQUIRE_DAILY_CREDIT` — Daily credit issued by an active SQUIRE lock. `usdc_amount` is the credit amount in microunits — but note this credits `credit_balance`, not `usdc_balance` (see `/balance`). `original_mint = "SQUIRE"`, `original_amount` is the locked amount that earned the credit.
 
 ---
 

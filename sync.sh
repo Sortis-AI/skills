@@ -16,7 +16,7 @@ sources=(
 declare -A plugin_meta=(
   [agent-messenger]="0.3.3|E2E encrypted agent-to-agent messaging over Nostr using NIP-17 gift wrapping."
   [agent-x]="0.5.4|Interact with X (Twitter) from the command line — post tweets, search, manage bookmarks, view timelines, and more."
-  [level5]="1.7.5|Budget Management for AI Agents — USDC billing gateway on Solana."
+  [level5]="1.7.7|Budget Management for AI Agents — USDC billing gateway on Solana."
   [agent-wallet]="0.1.0|Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol."
   [agent-dns]="0.2.1|MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC."
 )
