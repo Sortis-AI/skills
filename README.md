@@ -29,6 +29,7 @@ claude plugin install agent-x
 claude plugin install level5
 claude plugin install agent-wallet
 claude plugin install agent-dns
+claude plugin install usepod-agent-setup
 ```
 
 From within a Claude Code session:
@@ -40,6 +41,7 @@ From within a Claude Code session:
 /plugin install level5@sortis-ai-skills
 /plugin install agent-wallet@sortis-ai-skills
 /plugin install agent-dns@sortis-ai-skills
+/plugin install usepod-agent-setup@sortis-ai-skills
 ```
 
 Or run `/plugin` to open the interactive plugin manager, navigate to the **Discover** tab, and install from there.
@@ -53,3 +55,4 @@ Or run `/plugin` to open the interactive plugin manager, navigate to the **Disco
 | [level5](skills/level5/SKILL.md) | Budget Management for AI Agents — USDC billing gateway. Deposit USDC on Solana; pay for LLM compute per token. | [level5](https://github.com/Sortis-AI/level5) |
 | [agent-wallet](skills/agent-wallet/SKILL.md) | Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol. | [agent-wallet](https://github.com/Sortis-AI/agent-wallet) |
 | [agent-dns](skills/agent-dns/SKILL.md) | MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC. | [agent-dns](https://github.com/Sortis-AI/agent-dns) |
+| [usepod-agent-setup](skills/usepod-agent-setup/SKILL.md) | Install, configure, and run usepod-agent — the Use Pod marketplace provider agent — to earn USDC by serving inference jobs from a local vLLM, llama.cpp, LM Studio, or Ollama backend. | [usepod-agent](https://github.com/Sortis-AI/usepod-agent) |

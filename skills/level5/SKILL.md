@@ -26,6 +26,7 @@ This skill is **passive until the user explicitly requests it.** Do not register
 write files, or make network requests on skill load.
 
 Activate when:
+
 - The user asks to set up Level5, connect a billing account, or use Level5 as a proxy
 - The user asks you to register for Level5
 - A request fails with `402 Payment Required` and you ask the user if they'd like to fund their account
@@ -143,6 +144,7 @@ curl -X POST https://api.level5.cloud/v1/register
 ```
 
 **Response:**
+
 ```json
 {
   "api_token": "abc-123-def-456",
@@ -193,6 +195,7 @@ instructions for Claude Code, Codex, OpenCode, and Cursor.
 
 **For agents:** If a user asks how to find their dashboard, construct the URL from their
 `api_token` and provide it directly:
+
 ```python
 dashboard_url = f"https://level5.cloud/dashboard/{api_token}"
 print(f"Your dashboard: {dashboard_url}")
@@ -223,6 +226,7 @@ curl https://api.level5.cloud/health
 ```
 
 **Response (healthy):** HTTP 200
+
 ```json
 {
   "status": "ok",
@@ -235,6 +239,7 @@ curl https://api.level5.cloud/health
 ```
 
 **Response (degraded):** HTTP 503
+
 ```json
 {
   "status": "degraded",
@@ -255,6 +260,7 @@ curl -X POST https://api.level5.cloud/v1/register
 ```
 
 **Response:** HTTP 200
+
 ```json
 {
   "api_token": "abc-123-def-456",
@@ -278,6 +284,7 @@ curl https://api.level5.cloud/v1/pricing
 ```
 
 **Response:** HTTP 200
+
 ```json
 {
   "pricing": {
@@ -308,6 +315,7 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/balance
 ```
 
 **Response:** HTTP 200
+
 ```json
 {
   "api_token": "abc-123-def-456",
@@ -332,6 +340,7 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/lock-status
 ```
 
 **Response:** HTTP 200
+
 ```json
 {
   "locked_squire": 1000000000000,
@@ -354,6 +363,7 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/v1/models
 ```
 
 **Response:** HTTP 200 (OpenAI-compatible format)
+
 ```json
 {
   "object": "list",
@@ -373,6 +383,7 @@ curl "https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/transactions?page=1&limit=
 ```
 
 **Response:** HTTP 200
+
 ```json
 {
   "api_token": "abc-123-def-456",
@@ -482,6 +493,7 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/v1/messages \
 ```
 
 **Response headers include:**
+
 ```
 X-Balance-Remaining: 4999670
 ```
@@ -503,6 +515,7 @@ curl https://api.level5.cloud/proxy/{YOUR_API_TOKEN}/v1/chat/completions \
 ```
 
 **Response headers include:**
+
 ```
 X-Balance-Remaining: 4999670
 ```
@@ -620,6 +633,8 @@ Prices in USDC microunits per 1M tokens (6 decimals, 1 USDC = 1 000 000).
 | openai      | `gpt-4o`                      | 2 500 000  | 10 000 000 | 1 250 000     |
 | openai      | `gpt-4o-mini`                 | 150 000    | 600 000    | 75 000        |
 | openai      | `gpt-5.4-mini`                | 750 000    | 4 500 000  | 75 000        |
+| openai      | `gpt-5.4`                     | 3 443 000  | 20 680 000 | 344 300       |
+| openai      | `gpt-5.5`                     | 6 875 000  | 41 250 000 | 687 500       |
 | openai      | `o3`                          | 2 000 000  | 8 000 000  | 500 000       |
 | openrouter  | `claude-sonnet-4.6`           | 3 300 000  | 16 500 000 | 330 000       |
 | openrouter  | `claude-opus-4.6`             | 5 500 000  | 27 500 000 | 550 000       |
@@ -635,6 +650,8 @@ Prices in USDC microunits per 1M tokens (6 decimals, 1 USDC = 1 000 000).
 | openrouter  | `glm-5`                       | 1 100 000  | 3 520 000  | 220 000       |
 | openrouter  | `glm-5.1`                     | 1 045 000  | 3 465 000  | 522 500       |
 | openrouter  | `gpt-5.4-mini`                | 750 000    | 4 500 000  | 75 000        |
+| openrouter  | `gpt-5.4`                     | 2 750 000  | 16 500 000 | 275 000       |
+| openrouter  | `gpt-5.5`                     | 5 500 000  | 33 000 000 | 550 000       |
 | openrouter  | `grok-4-1-fast`               | 220 000    | 550 000    | 55 000        |
 | openrouter  | `gemini-3.1-pro-preview`      | 2 200 000  | 13 200 000 | 550 000       |
 

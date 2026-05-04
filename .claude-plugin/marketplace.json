@@ -57,6 +57,16 @@
         "url": "https://cli.city"
       },
       "source": "./skills/agent-dns"
+    },
+    {
+      "name": "usepod-agent-setup",
+      "version": "0.1.0",
+      "description": "Install, configure, and run usepod-agent — the Use Pod marketplace provider agent — to earn USDC by serving inference jobs from a local vLLM, llama.cpp, LM Studio, or Ollama backend.",
+      "author": {
+        "name": "Sortis AI",
+        "url": "https://cli.city"
+      },
+      "source": "./skills/usepod-agent-setup"
     }
   ]
 }

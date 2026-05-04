@@ -10,6 +10,7 @@ sources=(
   "$SCRIPT_DIR/../level5/skills/level5"
   "$SCRIPT_DIR/../agent-wallet/skills/agent-wallet"
   "$SCRIPT_DIR/../agent-dns/skills/agent-dns"
+  "$SCRIPT_DIR/../usepod-agent/.claude/skills/usepod-agent-setup"
 )
 
 # Plugin metadata keyed by skill name: "version|description"
@@ -19,6 +20,7 @@ declare -A plugin_meta=(
   [level5]="1.7.7|Budget Management for AI Agents — USDC billing gateway on Solana."
   [agent-wallet]="0.1.0|Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol."
   [agent-dns]="0.2.1|MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC."
+  [usepod-agent-setup]="0.1.0|Install, configure, and run usepod-agent — the Use Pod marketplace provider agent — to earn USDC by serving inference jobs from a local vLLM, llama.cpp, LM Studio, or Ollama backend."
 )
 
 for src in "${sources[@]}"; do
