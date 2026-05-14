@@ -1,0 +1,11 @@
+{
+  "name": "host-onboard",
+  "version": "0.1.0",
+  "description": "Onboard a GPU host to the Use Pod marketplace — install the usepod-agent, pair with the coordinator, post the USDC bond, and run as a systemd service to earn USDC serving inference.",
+  "author": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "homepage": "https://github.com/Sortis-AI/host-onboard",
+  "repository": "https://github.com/Sortis-AI/host-onboard"
+}

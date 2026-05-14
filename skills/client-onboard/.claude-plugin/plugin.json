@@ -1,0 +1,11 @@
+{
+  "name": "client-onboard",
+  "version": "0.1.0",
+  "description": "Onboard to Use Pod as an inference client — register an API token, fund it with USDC on Solana, and wire it into Claude, Cursor, OpenAI SDK, LangChain, and other agent harnesses.",
+  "author": {
+    "name": "Sortis AI",
+    "url": "https://cli.city"
+  },
+  "homepage": "https://github.com/Sortis-AI/client-onboard",
+  "repository": "https://github.com/Sortis-AI/client-onboard"
+}

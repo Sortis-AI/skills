@@ -11,6 +11,8 @@ sources=(
   "$SCRIPT_DIR/../agent-wallet/skills/agent-wallet"
   "$SCRIPT_DIR/../agent-dns/skills/agent-dns"
   "$SCRIPT_DIR/../usepod-agent/.claude/skills/usepod-agent-setup"
+  "$SCRIPT_DIR/../usepod/plugins/usepod/skills/client-onboard"
+  "$SCRIPT_DIR/../usepod/plugins/usepod/skills/host-onboard"
 )
 
 # Plugin metadata keyed by skill name: "version|description"
@@ -21,6 +23,8 @@ declare -A plugin_meta=(
   [agent-wallet]="0.1.0|Solana wallet CLI with automatic HTTP 402 payment handling via the MPP protocol."
   [agent-dns]="0.2.1|MPP-enabled agent-first DNS management and domain registration API. Pay-per-request via Solana USDC."
   [usepod-agent-setup]="0.1.0|Install, configure, and run usepod-agent — the Use Pod marketplace provider agent — to earn USDC by serving inference jobs from a local vLLM, llama.cpp, LM Studio, or Ollama backend."
+  [client-onboard]="0.1.0|Onboard to Use Pod as an inference client — register an API token, fund it with USDC on Solana, and wire it into Claude, Cursor, OpenAI SDK, LangChain, and other agent harnesses."
+  [host-onboard]="0.1.0|Onboard a GPU host to the Use Pod marketplace — install the usepod-agent, pair with the coordinator, post the USDC bond, and run as a systemd service to earn USDC serving inference."
 )
 
 for src in "${sources[@]}"; do
